@@ -11,6 +11,8 @@ namespace Procon23.Models
         public int Columns { get; set; }
         public string[,] Squares { get; set; } // Mảng 2 chiều đại diện cho các ô trên bàn cờ
 
+
+
         // Các loại khu vực
         public enum AreaType { Neutral, Territory, Castle, Wall, Pond }
         public AreaType[,] Areas { get; set; }
