@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@using Procon23.Models
+@model Procon23.Models.ChessboardModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chessboard</title>
+    <style>
+        /* CSS để trang trí bàn cờ */
+        /* Kích thước ô bàn cờ */
+        .square {
+            width: 100px; /* Chiều rộng ô bàn cờ */
+            height: 100px; /* Chiều cao ô bàn cờ */
+            border: 1px solid #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 28px; /* Kích thước chữ */
+            text-align: center;
+            position: relative; /* Để có thể định vị thợ thủ công bên trong */
+        }
+
+        
+
+        /* Hiệu ứng hover */
+        .square:hover {
+            transform: scale(1.1); /* Phóng to ô khi di chuột qua */
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Chessboard</h2>
+    <div id="chessboard-container">
+        <div id="chessboard">
+            @for (int i = 0; i < Model.Rows; i++)
+            {
+                for (int j = 0; j < Model.Columns; j++)
+                {
+                   
+                    <div class="square " data-row="@i" data-col="@j">
+                        @Model.Squares[i, j]
+                        <div class="worker"></div> <!-- Thêm thẻ div cho thợ thủ công -->
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</body>
+</html>
