@@ -9,7 +9,7 @@ namespace Procon23.Models
     {
         public int Rows { get; set; }
         public int Columns { get; set; }
-        public string[,] Squares { get; set; }
+        public string[,] Squares { get; set; } // Mảng 2 chiều đại diện cho các ô trên bàn cờ
 
         // Các loại khu vực
         public enum AreaType { Neutral, Territory, Castle, Wall, Pond }
@@ -33,5 +33,14 @@ namespace Procon23.Models
             }
 
         }
+        // Cập nhật loại khu vực cho một ô cụ thể
+        public void UpdateAreaType(int row, int column, AreaType areaType)
+        {
+            if (row >= 0 && row < Rows && column >= 0 && column < Columns)
+            {
+                Areas[row, column] = areaType;
+            }
+        }
+
     }
 }

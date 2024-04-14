@@ -25,13 +25,34 @@
             position: relative; /* Để có thể định vị thợ thủ công bên trong */
         }
 
-        
+        /* Màu sắc và hình dạng cho các loại ô */
+        .castle {
+            background-color: #8B4513; /* Màu nâu đậm cho Lâu đài */
+            border-radius: 10px; /* Bo góc để tạo hình dạng hình tròn */
+        }
+
+        .lake {
+            background-color: #1E90FF; /* Màu xanh dương cho Ao */
+        }
+
+        .territory {
+            background-color: #FFFF00; /* Màu vàng cho Lãnh thổ */
+        }
+
+        .wall {
+            background-color: #808080; /* Màu xám cho Tường */
+        }
+
+        .plain {
+            background-color: #008000; /* Màu xanh lá cho Đồng bằng */
+        }
+
+
 
         /* Hiệu ứng hover */
         .square:hover {
             transform: scale(1.1); /* Phóng to ô khi di chuột qua */
         }
-
     </style>
 </head>
 <body>
@@ -42,8 +63,8 @@
             {
                 for (int j = 0; j < Model.Columns; j++)
                 {
-                   
-                    <div class="square " data-row="@i" data-col="@j">
+                    var squareClass = GetSquareClass(i, j); /* Hàm để xác định lớp CSS cho ô */
+                    <div class="square  @squareClass" data-row="@i" data-col="@j">
                         @Model.Squares[i, j]
                         <div class="worker"></div> <!-- Thêm thẻ div cho thợ thủ công -->
                     </div>
@@ -54,3 +75,28 @@
 
 </body>
 </html>
+
+@functions {
+    // Hàm để xác định lớp CSS cho ô dựa trên vị trí của nó
+    private string GetSquareClass(int row, int col)
+    {
+        if (row == 0 || col == 0 || row == Model.Rows - 1 || col == Model.Columns - 1)
+        {
+            return "wall";
+        }
+        else
+        {
+            switch (Model.Areas[row, col])
+            {
+                case ChessboardModel.AreaType.Castle:
+                    return "castle";
+                case ChessboardModel.AreaType.Pond:
+                    return "lake";
+                case ChessboardModel.AreaType.Territory:
+                    return "territory";
+                default:
+                    return "plain";
+            }
+        }
+    }
+}
