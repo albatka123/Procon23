@@ -43,6 +43,33 @@ namespace Procon23.Models
                 Areas[row, column] = areaType;
             }
         }
+        // Thiết lập các khu vực đặc biệt như Lâu đài và Ao
+        private void SetInitialSpecialAreas()
+        {
+            Random rand = new Random();
+            int castleCount = rand.Next(2, 6); // Số lượng Lâu đài ramdom từ 2 đến 5
 
+            // Lặp qua các ô trên bàn cờ để đặt Lâu đài và Ao
+            for (int i = 0; i < castleCount; i++)
+            {
+                int row = rand.Next(1, Rows - 1); // Tránh việc đặt ở hàng đầu hoặc hàng cuối
+                int column = rand.Next(1, Columns - 1); // Tránh việc đặt ở cột đầu tiên hoặc cột cuối cùng
+
+                // Đặt Lâu đài
+                Areas[row, column] = AreaType.Castle;
+
+                // Đặt Ao (khu vực xung quanh Lâu đài)
+                for (int r = row - 1; r <= row + 1; r++)
+                {
+                    for (int c = column - 1; c <= column + 1; c++)
+                    {
+                        if (r >= 0 && r < Rows && c >= 0 && c < Columns && !(r == row && c == column))
+                        {
+                            Areas[r, c] = AreaType.Pond;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

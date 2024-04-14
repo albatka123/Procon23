@@ -11,6 +11,6 @@
     "\\Views\\Home",
     "\\Views\\Shared"
   ],
-  "SelectedNode": "\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\Models\\Worker.cs",
   "PreviewInSolutionExplorer": false
 }
