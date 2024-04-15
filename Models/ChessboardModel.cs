@@ -29,7 +29,9 @@ namespace Procon23.Models
             Columns = columns;
             Squares = new string[Rows, Columns];
             Areas = new AreaType[Rows, Columns];
-           
+            // Khởi tạo số lượng thợ thủ công ngẫu nhiên từ 2 đến 5           
+            Workers = new List<Worker>(); // Khởi tạo danh sách Worker
+
 
             // Khởi tạo giá trị ban đầu cho các loại khu vực (Trung lập)
             for (int i = 0; i < Rows; i++)
