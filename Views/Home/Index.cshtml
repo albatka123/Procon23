@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@using Procon23.Models
+@model Procon23.Models.ChessboardModel
+@{
+    Random rand = new Random();
+    var workerPositions = new List<Tuple<int, int>>();
+
+    while (workerPositions.Count < 5)
+    {
+        int row = rand.Next(1, Model.Rows - 1); // Tránh việc đặt ở hàng đầu hoặc hàng cuối
+        int col = rand.Next(1, Model.Columns - 1); // Tránh việc đặt ở cột đầu tiên hoặc cột cuối cùng
+
+        // Kiểm tra xem vị trí đã tồn tại chưa và nằm trong biên của bàn cờ, nếu chưa thêm vào danh sách
+        if (!workerPositions.Any(pos => pos.Item1 == row && pos.Item2 == col) &&
+            row > 0 && row < Model.Rows - 1 && col > 0 && col < Model.Columns - 1)
+        {
+            workerPositions.Add(Tuple.Create(row, col));
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chessboard</title>
+    <style>
+        /* CSS để trang trí bàn cờ */
+        /* Kích thước ô bàn cờ */
+        .square {
+            width: 100px; /* Chiều rộng ô bàn cờ */
+            height: 100px; /* Chiều cao ô bàn cờ */
+            border: 1px solid #000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 28px; /* Kích thước chữ */
+            text-align: center;
+            position: relative; /* Để có thể định vị thợ thủ công bên trong */
+        }
+        /* Màu sắc và hình dạng cho các loại ô */
+        .castle {
+            background-color: #8B4513; /* Màu nâu đậm cho Lâu đài */
+            border-radius: 10px; /* Bo góc để tạo hình dạng hình tròn */
+        }
+
+        .lake {
+            background-color: #1E90FF; /* Màu xanh dương cho Ao */
+        }
+
+        .territory {
+            background-color: #FFFF00; /* Màu vàng cho Lãnh thổ */
+        }
+
+        .wall {
+            background-color: #808080; /* Màu xám cho Tường */
+        }
+
+        .plain {
+            background-color: #008000; /* Màu xanh lá cho Đồng bằng */
+        }
+
+        /* Hiệu ứng hover */
+        .square:hover {
+            transform: scale(1.1); /* Phóng to ô khi di chuột qua */
+        }
+        /* Thợ thủ công */
+        .worker {
+            width: 20px;
+            height: 20px;
+            background-color: red; /* Màu đỏ cho thợ thủ công */
+            border-radius: 40%; /* Hình tròn */
+            position: absolute; /* Định vị tuyệt đối bên trong ô */
+            top: 50%; /* Canh chỉnh vị trí theo chiều dọc */
+            left: 50%; /* Canh chỉnh vị trí theo chiều ngang */
+            transform: translate(-50%, -50%); /* Dịch chuyển thợ thủ công để canh chỉnh vào trung tâm của ô */
+            display: block; /* Mặc định ẩn thợ thủ công */
+        }
+        .selected {
+            border: 2px solid yellow; /* Hiển thị viền màu vàng cho ô được chọn */
+        }
+            /* Hiệu ứng hover */
+            .worker:hover {
+                transform: scale(1.5); /* Phóng to khi di chuột qua */
+            }
+    </style>
+</head>
+<body>
+    <h2>Chessboard</h2>
+    <div id="chessboard-container">
+        <div id="chessboard">
+            @for (int i = 0; i < Model.Rows; i++)
+            {
+                for (int j = 0; j < Model.Columns; j++)
+                {
+                    var squareClass = GetSquareClass(i, j); /* Hàm để xác định lớp CSS cho ô */
+                    <div class="square @squareClass" data-row="@i" data-col="@j">
+                        @Model.Squares[i, j]
+                        @if (workerPositions.Any(pos => pos.Item1 == i && pos.Item2 == j && Model.Areas[i, j] != ChessboardModel.AreaType.Pond))
+                        {
+                            <div class="worker"></div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <script>
+        // Sự kiện khi bấm phím
+        document.addEventListener('keydown', function (event) {
+            const row = parseInt(document.querySelector('.selected').getAttribute('data-row'));
+            const col = parseInt(document.querySelector('.selected').getAttribute('data-col'));
+            const worker = document.querySelector('.selected .worker');
+
+            // Di chuyển thợ thủ công theo hướng của phím bấm
+            switch (event.key) {
+                case 'a':
+                case 'A':
+                    MoveWorker(row, col, row, col - 1);
+                    break;
+                case 'w':
+                case 'W':
+                    MoveWorker(row, col, row - 1, col);
+                    break;
+                case 's':
+                case 'S':
+                    MoveWorker(row, col, row + 1, col);
+                    break;
+                case 'd':
+                case 'D':
+                    MoveWorker(row, col, row, col + 1);
+                    break;
+            }
+        });
+
+       function MoveWorker(currentRow, currentColumn, newRow, newColumn) {
+    // Kiểm tra xem vị trí mới của thợ thủ công có nằm trong biên của bàn cờ không
+    if (newRow >= 0 && newRow < @Model.Rows && newColumn >= 0 && newColumn < @Model.Columns) {
+        // Gửi yêu cầu POST đến API Controller để di chuyển thợ thủ công
+        $.post('/Home/Move', { currentRow: currentRow, currentColumn: currentColumn }, function (data) {
+            // Xử lý dữ liệu phản hồi nếu cần
+
+            // Cập nhật vị trí thợ thủ công trên giao diện nếu phản hồi thành công
+            if (data.success) {
+                const worker = document.querySelector('.selected .worker');
+                const square = document.querySelector(`.square[data-row="${newRow}"][data-col="${newColumn}"]`);
+                worker.style.display = 'block';
+                worker.style.top = square.offsetTop + 'px';
+                worker.style.left = square.offsetLeft + 'px';
+
+                // Ẩn các thợ thủ công ở ô khác
+            } else {
+                console.log('Di chuyển thợ thủ công không thành công.');
+            }
+        });
+    } else {
+        console.log('Thợ thủ công không thể di chuyển ra ngoài biên của bàn cờ.');
+    }
+}
+        document.querySelectorAll('.square').forEach(square => {
+            square.addEventListener('click', function () {
+                // Xóa lớp CSS selected khỏi tất cả các ô khác
+                document.querySelectorAll('.square').forEach(s => {
+                    s.classList.remove('selected');
+                });
+                // Thêm lớp CSS selected vào ô được chọn
+                square.classList.add('selected');
+            });
+        });
+
+    </script>
+</body>
+</html>
+@functions {
+    // Hàm để xác định lớp CSS cho ô dựa trên vị trí của nó
+    private string GetSquareClass(int row, int col)
+    {
+        if (row == 0 || col == 0 || row == Model.Rows - 1 || col == Model.Columns - 1)
+        {
+            return "wall";
+        }
+        else
+        {
+            switch (Model.Areas[row, col])
+            {
+                case ChessboardModel.AreaType.Castle:
+                    return "castle";
+                case ChessboardModel.AreaType.Pond:
+                    return "lake";
+                case ChessboardModel.AreaType.Territory:
+                    return "territory";
+                default:
+                    return "plain";
+            }
+        }
+    }
+}
