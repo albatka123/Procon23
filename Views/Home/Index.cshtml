@@ -49,6 +49,23 @@
         .square:hover {
             transform: scale(1.1); /* Phóng to ô khi di chuột qua */
         }
+        /* Thợ thủ công */
+        .worker {
+            width: 20px;
+            height: 20px;
+            background-color: red; /* Màu đỏ cho thợ thủ công */
+            border-radius: 40%; /* Hình tròn */
+            position: absolute; /* Định vị tuyệt đối bên trong ô */
+            top: 50%; /* Canh chỉnh vị trí theo chiều dọc */
+            left: 50%; /* Canh chỉnh vị trí theo chiều ngang */
+            transform: translate(-50%, -50%); /* Dịch chuyển thợ thủ công để canh chỉnh vào trung tâm của ô */
+            display: block; /* Mặc định ẩn thợ thủ công */
+        }
+
+         /* Hiệu ứng hover */
+        .worker:hover {
+                transform: scale(1.5); /* Phóng to khi di chuột qua */
+        }
     </style>
 </head>
 <body>
@@ -68,7 +85,26 @@
             }
         </div>
     </div>
+    <script>
+        document.querySelectorAll('.territory').forEach(square => {
+            square.addEventListener('click', function () {
+                const row = parseInt(square.getAttribute('data-row'));
+                const col = parseInt(square.getAttribute('data-col'));
+                const worker = square.querySelector('.worker');
+                worker.style.display = 'block';
 
+                // Gửi yêu cầu POST đến API Controller
+                $.post('/Api/Move', { currentRow: row, currentColumn: col }, function (data) {
+                    // Xử lý dữ liệu phản hồi nếu cần
+                });
+                //Ẩn các thợ thủ công ở ô khác
+                document.querySelectorAll('.worker').forEach(w => {
+                    if (w !== worker) {
+                        w.style.display = 'none';
+                    }
+                });
+            });
+        });
 </body>
 </html>
 

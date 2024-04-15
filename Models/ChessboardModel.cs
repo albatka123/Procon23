@@ -33,7 +33,8 @@ namespace Procon23.Models
                     Areas[i, j] = AreaType.Neutral;
                 }
             }
-
+            // Thiết lập các khu vực đặc biệt như Lâu đài và Ao
+            SetInitialSpecialAreas();
         }
         // Cập nhật loại khu vực cho một ô cụ thể
         public void UpdateAreaType(int row, int column, AreaType areaType)
