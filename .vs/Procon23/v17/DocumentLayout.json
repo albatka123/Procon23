@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Procon\\Procon trong ProCon\\Procon23\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|D:\\Procon\\Procon trong ProCon\\Procon23\\models\\chessboardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|solutionrelative:models\\chessboardmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|d:\\procon\\procon trong procon\\procon23\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|D:\\Procon\\Procon trong ProCon\\Procon23\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|D:\\Procon\\Procon trong ProCon\\Procon23\\models\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D34068A-75A4-42ED-8A9E-D6184BEA0D66}|Procon23.csproj|solutionrelative:models\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 39,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Worker.cs",
+              "DocumentMoniker": "D:\\Procon\\Procon trong ProCon\\Procon23\\Models\\Worker.cs",
+              "RelativeDocumentMoniker": "Models\\Worker.cs",
+              "ToolTip": "D:\\Procon\\Procon trong ProCon\\Procon23\\Models\\Worker.cs",
+              "RelativeToolTip": "Models\\Worker.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAAB4AAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:07:29.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Procon\\Procon trong ProCon\\Procon23\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Procon\\Procon trong ProCon\\Procon23\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:07:30.066Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Procon\\Procon trong ProCon\\Procon23\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\Procon\\Procon trong ProCon\\Procon23\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAHQAAAAAAAAAAAAAAEIAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-15T04:07:31.556Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChessboardModel.cs",
+              "DocumentMoniker": "D:\\Procon\\Procon trong ProCon\\Procon23\\Models\\ChessboardModel.cs",
+              "RelativeDocumentMoniker": "Models\\ChessboardModel.cs",
+              "ToolTip": "D:\\Procon\\Procon trong ProCon\\Procon23\\Models\\ChessboardModel.cs",
+              "RelativeToolTip": "Models\\ChessboardModel.cs",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAmwBIAAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T04:07:32.044Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

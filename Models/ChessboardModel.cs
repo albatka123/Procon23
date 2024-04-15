@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Procon23.Models.Procon23.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,10 +8,15 @@ namespace Procon23.Models
 {
     public class ChessboardModel
     {
+        public class Worker
+        {
+            public int Row { get; set; }
+            public int Column { get; set; }
+        }
         public int Rows { get; set; }
         public int Columns { get; set; }
         public string[,] Squares { get; set; } // Mảng 2 chiều đại diện cho các ô trên bàn cờ
-
+        public List<Worker> Workers { get; set; } // Danh sách Worker trên bàn cờ
 
 
         // Các loại khu vực
@@ -70,6 +76,58 @@ namespace Procon23.Models
                         }
                     }
                 }
+            }
+        }
+        // Phương thức để thực hiện các chuyển động của thợ thủ công
+        public void PerformMove(int currentRow, int currentColumn, int newRow, int newColumn)
+        {
+            // Kiểm tra xem vị trí mới có nằm trong phạm vi bàn cờ không
+            if (newRow < 0 || newRow >= Rows || newColumn < 0 || newColumn >= Columns)
+            {
+                // Nếu vị trí mới nằm ngoài phạm vi bàn cờ, không thực hiện chuyển động
+                return;
+            }
+
+            // Kiểm tra xem vị trí mới có phải là vị trí của Bức tường hoặc Ao không
+            if (Areas[newRow, newColumn] == AreaType.Wall || Areas[newRow, newColumn] == AreaType.Pond)
+            {
+                // Nếu vị trí mới là Bức tường hoặc Ao, không thực hiện chuyển động
+                return;
+            }
+
+            // Kiểm tra xem vị trí mới có trùng với vị trí của thợ thủ công khác không
+            foreach (var worker in Workers)
+            {
+                // Bỏ qua vị trí của chính thợ thủ công hiện tại
+                if (worker.Row == currentRow && worker.Column == currentColumn)
+                {
+                    continue;
+                }
+
+                // Kiểm tra xem vị trí mới có trùng với vị trí của thợ thủ công khác không
+                if (worker.Row == newRow && worker.Column == newColumn)
+                {
+                    // Nếu trùng, không thực hiện chuyển động
+                    return;
+                }
+            }
+
+            // Nếu điều kiện trên đều không áp dụng, thực hiện chuyển động bằng cách cập nhật vị trí của thợ thủ công
+            Workers.First(w => w.Row == currentRow && w.Column == currentColumn).Row = newRow;
+            Workers.First(w => w.Row == currentRow && w.Column == currentColumn).Column = newColumn;
+        }
+        // Thêm phương thức để cập nhật vị trí của Worker
+        public void UpdateWorkerPosition(int currentRow, int currentColumn)
+        {
+            // Tìm Worker hiện tại trong danh sách Workers và cập nhật vị trí của nó
+            // Trong trường hợp này, tôi giả định rằng chỉ có một Worker được di chuyển
+            // và tôi không xác định vị trí mới của Worker trong yêu cầu, vì vậy tôi sẽ chỉ cập nhật vị trí hiện tại của Worker.
+            // Bạn có thể điều chỉnh mã này để xác định vị trí mới của Worker và cập nhật nó trong mô hình.
+            var worker = Workers.FirstOrDefault();
+            if (worker != null)
+            {
+                worker.Row = currentRow;
+                worker.Column = currentColumn;
             }
         }
     }
